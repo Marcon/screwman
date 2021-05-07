@@ -14,3 +14,14 @@ class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+
+class DeviceTypeListView(generics.ListCreateAPIView):
+    queryset = DeviceType.objects.all()
+    serializer_class = DeviceTypeSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+class DeviceTypeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DeviceType.objects.all()
+    serializer_class = DeviceTypeSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
