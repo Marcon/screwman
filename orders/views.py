@@ -8,3 +8,9 @@ class ManufacturerListView(generics.ListCreateAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+
+class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Manufacturer.objects.all()
+    serializer_class = ManufacturerSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
