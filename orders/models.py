@@ -16,6 +16,7 @@ class Device(models.Model):
     device_type = models.ForeignKey('DeviceType', on_delete=models.PROTECT)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.PROTECT)
     serial = models.CharField(max_length=200)
+    model = models.CharField(max_length=200)
     description = models.TextField()
 
 
