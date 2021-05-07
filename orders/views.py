@@ -49,3 +49,39 @@ class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     permission_classes = [IsAuthenticated, ]
+
+
+class DeviceListView(generics.ListCreateAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class OrderActionListView(generics.ListCreateAPIView):
+    queryset = OrderActions.objects.all()
+    serializer_class = OrderActionsSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderActions.objects.all()
+    serializer_class = OrderActionsSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class OrderListView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated, ]
