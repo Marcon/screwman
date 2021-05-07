@@ -25,3 +25,15 @@ class DeviceTypeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+
+class ActionListView(generics.ListCreateAPIView):
+    queryset = Action.objects.all()
+    serializer_class = ActionSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+
+class ActionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Action.objects.all()
+    serializer_class = ActionSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]

@@ -11,3 +11,9 @@ class DeviceTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceType
         fields = '__all__'
+
+
+class ActionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Action
+        fields = '__all__'
