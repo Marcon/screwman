@@ -8,4 +8,6 @@ urlpatterns = [
     path('device-types/<int:pk>/', DeviceTypeDetailView.as_view()),
     path('actions/', ActionListView.as_view()),
     path('actions/<int:pk>/', ActionDetailView.as_view()),
+    path('customers/', CustomerListView.as_view()),
+    path('customers/<int:pk>/', CustomerDetailView.as_view()),
 ]

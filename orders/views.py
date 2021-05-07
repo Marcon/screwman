@@ -37,3 +37,15 @@ class ActionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Action.objects.all()
     serializer_class = ActionSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+
+
+class CustomerListView(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticated, ]
+
+
+class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticated, ]
