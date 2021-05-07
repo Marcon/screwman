@@ -41,6 +41,7 @@ class Order(models.Model):
         (STATE_READY, 'Ready'),
         (STATE_DONE, 'Done'),
     )
+    customer = models.ForeignKey('Customer', related_name='orders', on_delete=models.PROTECT)
     device = models.ForeignKey('Device', related_name='orders', on_delete=models.PROTECT)
     accept_date = models.DateTimeField(auto_now_add=True)
     accept_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='+')
@@ -62,3 +63,8 @@ class OrderActions(models.Model):
     price = models.DecimalField(null=True, max_digits=10, decimal_places=2)
 
 
+class Customer(models.Model):
+    name = models.CharField(max_length=300)
+    phone = models.CharField(max_length=25, unique=True)
+    email = models.EmailField(null=True, unique=True)
+    notes = models.TextField(null=True)
