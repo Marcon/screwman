@@ -4,27 +4,29 @@ from .models import *
 from .serializers import *
 from .permissions import *
 
+
 class ManufacturerListView(generics.ListCreateAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
 
 
 class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
 
 
 class DeviceTypeListView(generics.ListCreateAPIView):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
+
 
 class DeviceTypeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
 
 
 class ActionListView(generics.ListCreateAPIView):

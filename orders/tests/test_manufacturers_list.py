@@ -21,14 +21,14 @@ class ManufacturersListTest(APITestCase):
         Manufacturer.objects.create(title='Test2', description='description2')
     
     def test_authorized_create(self):
-        self.client.login(username='user', password='usr')
+        self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'title': 'test'})
         self.client.logout()
 
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         self.client.login(username='admin', password='admin')
-        response = self.client.post(self.url, {'title': 'test'})
+        response = self.client.post(self.url, {'title': 'test2'})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
     
     def test_authorized_list(self):
@@ -45,7 +45,6 @@ class ManufacturersListTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
-        
 
     def test_unauthorized_access(self):
         response = self.client.get(self.url)
@@ -53,4 +52,3 @@ class ManufacturersListTest(APITestCase):
 
         response = self.client.post(self.url, {'title': 'test'})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        
