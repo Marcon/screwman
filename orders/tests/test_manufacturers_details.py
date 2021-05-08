@@ -15,7 +15,6 @@ class ManufacturersDetailsTest(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        User.objects.create_superuser('admin', 'admin@screwman.test', 'admin')
         User.objects.create_user('usr', 'usr@screwman.test', 'usr')
         Manufacturer.objects.create(title='Test1', description='description')
         Manufacturer.objects.create(title='Test2', description='description2')
@@ -24,3 +23,30 @@ class ManufacturersDetailsTest(APITestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        response = self.client.put(self.url, {'title': 'Test3', 'description': 'test'})
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        response = self.client.delete(self.url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_authorized_retrieve(self):
+        self.client.login(username='usr', password='usr')
+        response = self.client.get(self.url)
+        self.client.logout()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_authorized_update(self):
+        self.client.login(username='usr', password='usr')
+        response = self.client.put(self.url, {'title': 'Test3', 'description': 'test'})
+        self.client.logout()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_authorized_delete(self):
+        self.client.login(username='usr', password='usr')
+        response = self.client.delete(self.url)
+        self.client.logout()
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
