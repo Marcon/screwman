@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import *
@@ -79,11 +80,27 @@ class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class OrderListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = OrderCreateUpdateSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return OrderSerializer
+        return super().get_serializer_class()
 
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = OrderCreateUpdateSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def perform_update(self, serializer):
+        if serializer.validated_data['state'] == Order.STATE_DONE and serializer.validated_data['closed_by'] is None:
+            serializer.save(closed_by=self.request.user, closed_at=timezone.now())
+        else:
+            super().perform_update(serializer)
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return OrderSerializer
+        return super().get_serializer_class()

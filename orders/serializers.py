@@ -37,6 +37,17 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class OrderCreateUpdateSerializer(serializers.ModelSerializer):
+    accept_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    updated_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    closed_by = serializers.HiddenField(default=None)
+    closed_at = serializers.HiddenField(default=None)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+
 class OrderActionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderActions
