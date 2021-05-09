@@ -29,7 +29,7 @@ class OrdersList(APITestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-        response = self.client.post(self.url, {'customer': 1, 'device': 1, 'accept_by': 1, 'state': Order.STATE_NEW, 'malfunction_description': 'description', 'updated_by': 1})
+        response = self.client.post(self.url, {'customer': 1, 'device': 1, 'state': Order.STATE_NEW, 'malfunction_description': 'description'})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_authenticated_get(self):
@@ -41,7 +41,7 @@ class OrdersList(APITestCase):
 
     def test_authenticated_create(self):
         self.client.login(username='usr', password='usr')
-        response = self.client.post(self.url, {'customer': 1, 'device': 1, 'accept_by': 1, 'state': Order.STATE_NEW, 'malfunction_description': 'description', 'updated_by': 1})
+        response = self.client.post(self.url, {'customer': 1, 'device': 1, 'state': Order.STATE_NEW, 'malfunction_description': 'description'})
         self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
