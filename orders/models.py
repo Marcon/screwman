@@ -70,7 +70,7 @@ class OrderActions(models.Model):
     order = models.ForeignKey('Order', related_name='actions', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    decription = models.TextField()
+    description = models.TextField()
     action = models.ForeignKey('Action', on_delete=models.PROTECT)
     price = models.DecimalField(null=True, max_digits=10, decimal_places=2)
 
