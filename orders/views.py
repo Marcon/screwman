@@ -68,14 +68,24 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class OrderActionListView(generics.ListCreateAPIView):
     queryset = OrderActions.objects.all()
-    serializer_class = OrderActionsSerializer
+    serializer_class = OrderActionsUpdateSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return OrderActionsSerializer
+        return super().get_serializer_class()
 
 
 class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderActions.objects.all()
-    serializer_class = OrderActionsSerializer
+    serializer_class = OrderActionsUpdateSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return OrderActionsSerializer
+        return super().get_serializer_class()
 
 
 class OrderListView(generics.ListCreateAPIView):

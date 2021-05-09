@@ -52,3 +52,11 @@ class OrderActionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderActions
         fields = '__all__'
+
+
+class OrderActionsUpdateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = OrderActions
+        fields = '__all__'
