@@ -61,6 +61,7 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
 class OrderActionListView(generics.ListCreateAPIView):
     queryset = OrderAction.objects.all()
     serializer_class = OrderActionsUpdateSerializer
+    permission_classes = [IsAuthenticated, IsAllowedAddActionToOrder, ]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
