@@ -11,10 +11,9 @@ class IsAdminOrReadOnly(BasePermission):
 
 
 class ClosedOrderAdminWriteable(BasePermission):
-    def has_permission(self, request, view):
-        obj = view.get_object()
-        if request.method in SAFE_METHODS:
-            return True
-        if obj.state == Order.STATE_DONE:
-            return request.user.is_staff
-        return True
+
+    def has_object_permission(self, request, view, obj):
+        if request.method not in SAFE_METHODS:
+            if obj.state == Order.STATE_DONE:
+                return request.user.is_staff
+        return super().has_object_permission(request, view, obj)
