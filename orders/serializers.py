@@ -50,7 +50,7 @@ class OrderCreateUpdateSerializer(serializers.ModelSerializer):
 
 class OrderActionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderActions
+        model = OrderAction
         fields = '__all__'
 
 
@@ -58,5 +58,5 @@ class OrderActionsUpdateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
-        model = OrderActions
+        model = OrderAction
         fields = '__all__'

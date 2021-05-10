@@ -59,7 +59,7 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class OrderActionListView(generics.ListCreateAPIView):
-    queryset = OrderActions.objects.all()
+    queryset = OrderAction.objects.all()
     serializer_class = OrderActionsUpdateSerializer
 
     def get_serializer_class(self):
@@ -69,7 +69,7 @@ class OrderActionListView(generics.ListCreateAPIView):
 
 
 class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = OrderActions.objects.all()
+    queryset = OrderAction.objects.all()
     serializer_class = OrderActionsUpdateSerializer
 
     def get_serializer_class(self):

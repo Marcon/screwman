@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Manufacturer(models.Model):
     title = models.CharField(max_length=500, unique=True)
     description = models.TextField(null=True)
@@ -66,7 +67,7 @@ class Order(models.Model):
     closed_at = models.DateField(null=True)
 
 
-class OrderActions(models.Model):
+class OrderAction(models.Model):
     order = models.ForeignKey('Order', related_name='actions', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
