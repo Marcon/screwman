@@ -15,6 +15,7 @@ class OrdersList(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
+        User.objects.create_superuser('admin', 'admin@screwman.test', 'admin')
         user = User.objects.create_user('usr', 'usr@screwman.test', 'usr')
         manufacturer = Manufacturer.objects.create(title='Test', description='Test manufacturer')
         device_type = DeviceType.objects.create(title='cell phone')
@@ -23,7 +24,7 @@ class OrdersList(APITestCase):
         customer1 = Customer.objects.create(name='Customer 1', phone='+380000000')
         customer2 = Customer.objects.create(name='Customer 2', phone='+380000001')
         Order.objects.create(customer=customer1, device=device1, accept_by=user, state=Order.STATE_NEW, malfunction_description='description', updated_by=user)
-        Order.objects.create(customer=customer2, device=device2, accept_by=user, state=Order.STATE_NEW, malfunction_description='description', updated_by=user)
+        Order.objects.create(customer=customer2, device=device2, accept_by=user, state=Order.STATE_DONE, malfunction_description='description', updated_by=user)
 
     def test_unauthenticated_access(self):
         response = self.client.get(self.url)
@@ -51,4 +52,31 @@ class OrdersList(APITestCase):
         self.client.login(username='usr', password='usr')
         response = self.client.delete(self.url)
 
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_user_read_only_closed_order(self):
+        url = reverse('orders-details', kwargs={'pk': 2})
+        self.client.login(username='usr', password='usr')
+        response = self.client.put(url,  {'customer': 1,
+                                          'device': 1,
+                                          'state': Order.STATE_DIAGNOSTICS,
+                                          'malfunction_description': 'description'})
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_admin_can_edit_closed_order(self):
+        url = reverse('orders-details', kwargs={'pk': 2})
+
+        self.client.login(username='admin', password='admin')
+        response = self.client.put(url, {'customer': 1,
+                                         'device': 1,
+                                         'state': Order.STATE_DIAGNOSTICS,
+                                         'malfunction_description': 'description'})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

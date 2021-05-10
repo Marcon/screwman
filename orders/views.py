@@ -91,6 +91,7 @@ class OrderListView(generics.ListCreateAPIView):
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateUpdateSerializer
+    permission_classes = [IsAuthenticated, ClosedOrderAdminWriteable, ]
 
     def perform_update(self, serializer):
         if serializer.validated_data['state'] == Order.STATE_DONE and serializer.validated_data['closed_by'] is None:
