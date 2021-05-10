@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(auto_now_add=True)),
-                ('description', models.TextField()),
+                ('description', models.TextField(null=True)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, null=True)),
                 ('action', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='orders.action')),
                 ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='actions', to='orders.order')),
