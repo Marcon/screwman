@@ -32,7 +32,6 @@ class ActionsList(APITestCase):
     def test_authenticated_get(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -45,18 +44,14 @@ class ActionsList(APITestCase):
         response = self.client.delete(self.url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.client.logout()
-
     def test_admin_update(self):
         self.client.login(username='admin', password='admin')
         response = self.client.put(self.url, {'title': 'test', 'price': 200.0})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_admin_delete(self):
         self.client.login(username='admin', password='admin')
         response = self.client.delete(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

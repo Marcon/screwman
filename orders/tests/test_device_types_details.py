@@ -32,20 +32,17 @@ class DeviceTypesList(APITestCase):
     def test_authorized_get(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_authenticated_put(self):
         self.client.login(username='usr', password='usr')
         response = self.client.put(self.url, {'title': 'test3'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_authenticated_delete(self):
         self.client.login(username='usr', password='usr')
         response = self.client.delete(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

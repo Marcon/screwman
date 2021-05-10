@@ -29,13 +29,11 @@ class ActionsList(APITestCase):
     def test_authenticated_get(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_admin_create(self):
         self.client.login(username='admin', password='admin')
         response = self.client.post(self.url, {'title': 'test', 'price': 50.0})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

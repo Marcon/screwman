@@ -31,14 +31,12 @@ class DevicesList(APITestCase):
     def test_authenticated_get(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_authenticated_create(self):
         self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'device_type': 1, 'manufacturer': 1, 'serial': 'sn-00003', 'model': 'd-00003', 'description': 'test device'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

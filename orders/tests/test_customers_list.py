@@ -25,27 +25,23 @@ class CustomersList(APITestCase):
     def test_authenticated_get(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.login()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_authenticated_create(self):
         self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'name': 'Test customer', 'phone': '+380000001'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_should_restrict_duplicate_phone(self):
         self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'name': 'Duplicate Phone', 'phone': '+380000000'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_should_restrict_duplicate_email(self):
         self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'name': 'Duplicate email', 'phone': '+380000002', 'email': 'test@screwman.test'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

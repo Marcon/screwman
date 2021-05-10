@@ -23,7 +23,6 @@ class ManufacturersListTest(APITestCase):
     def test_authorized_create(self):
         self.client.login(username='usr', password='usr')
         response = self.client.post(self.url, {'title': 'test'})
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -34,14 +33,12 @@ class ManufacturersListTest(APITestCase):
     def test_authorized_list(self):
         self.client.login(username='usr', password='usr')
         response = self.client.get(self.url)
-        self.client.logout()
-        
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
         self.client.login(username='admin', password='admin')
         response = self.client.get(self.url)
-        self.client.logout()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
