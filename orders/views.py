@@ -9,25 +9,21 @@ from .permissions import *
 class ManufacturerListView(generics.ListCreateAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class ManufacturerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Manufacturer.objects.all()
     serializer_class = ManufacturerSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class DeviceTypeListView(generics.ListCreateAPIView):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class DeviceTypeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class ActionListView(generics.ListCreateAPIView):
@@ -45,31 +41,26 @@ class ActionDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CustomerListView(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class DeviceListView(generics.ListCreateAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
-    permission_classes = [IsAuthenticated, ]
 
 
 class OrderActionListView(generics.ListCreateAPIView):
     queryset = OrderActions.objects.all()
     serializer_class = OrderActionsUpdateSerializer
-    permission_classes = [IsAuthenticated, ]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -80,7 +71,6 @@ class OrderActionListView(generics.ListCreateAPIView):
 class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderActions.objects.all()
     serializer_class = OrderActionsUpdateSerializer
-    permission_classes = [IsAuthenticated, ]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -91,7 +81,6 @@ class OrderActionDetailView(generics.RetrieveUpdateDestroyAPIView):
 class OrderListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateUpdateSerializer
-    permission_classes = [IsAuthenticated, ]
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -102,7 +91,6 @@ class OrderListView(generics.ListCreateAPIView):
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateUpdateSerializer
-    permission_classes = [IsAuthenticated, ]
 
     def perform_update(self, serializer):
         if serializer.validated_data['state'] == Order.STATE_DONE and serializer.validated_data['closed_by'] is None:
